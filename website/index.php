@@ -91,6 +91,7 @@ and seperate folders being subsequently below in same fashion.
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $title = $_POST["title"];
   $sra = $_POST["sra"];
   $tax = $_POST["tax"];
   if(isset($_POST['assemble'])) {
@@ -103,7 +104,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 {
     mkdir("work", 0755, true);
 }
-
+  $myfile = fopen("./work/title.txt", "w") or die("Unable to open file!");
+  fwrite($myfile,$title);
+  fclose($myfile);
+  
   $myfile = fopen("./work/SRAFILE.txt", "w") or die("Unable to open file!");
   fwrite($myfile, $sra);
   fclose($myfile);
