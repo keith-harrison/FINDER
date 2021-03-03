@@ -1,0 +1,42 @@
+version: '3'
+services:
+    website:
+      build: ./website
+      volumes:
+        - ./website:/var/www/html
+        - ./website/work:/work
+        - ./website/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      ports:
+        - 5000:80
+      networks:
+        - frontend
+    controller:
+      stdin_open: true 
+      tty: true   
+      build: ./controller
+      ports:
+        - 5001:81
+      volumes:
+        -  /var/run/docker.sock:/var/run/docker.sock
+        - ./website:/var/www/html
+        - ./website/work:/work
+        - ./program:/program
+      networks:
+        - backend
+        - frontend
+    program:
+      stdin_open: true # docker run -i
+      tty: true   
+      working_dir: /program
+      build: ./program
+      volumes: 
+        - ./program:/program
+        - ./website/work:/work
+      networks:
+        - backend
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
