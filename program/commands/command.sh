@@ -85,7 +85,7 @@ mv @SRRNUMBER_info.csv ${PWD}/@SRRNUMBER
 [ -r /work/assemble.txt ] && ls ${PWD}/@SRRNUMBER/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@SRRNUMBER/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
 rm /work/assemble.txt
 rm /work/SPECIES.txt
-
+rm /work/title.txt
 #stats R script that plots a graph of coverage by bowtie2 <3 
 #params for species/contaminants into the docker file would mean we can put it onto docker and then use wget to get all files needed
 #R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
