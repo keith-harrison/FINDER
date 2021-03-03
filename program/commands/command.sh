@@ -72,10 +72,12 @@ fi
 #MOVE FILES INTO OWN OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
+mkdir -p ~/user_records
 mkdir ${PWD}/@SRRNUMBER
 mv *@SRRNUMBER.* ${PWD}/@SRRNUMBER
 find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/@SRRNUMBER   ; done
-
+echo "$(cat title.txt)" | xargs mkdir
+#find out how to change srrnumber below with the contents of title.txt
 mv mergedreference.fasta  ${PWD}/@SRRNUMBER
 sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@SRRNUMBER
 sudo mv ${PWD}/trimmedquality_data ${PWD}/@SRRNUMBER
