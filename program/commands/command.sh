@@ -18,7 +18,7 @@ wget -O ./@SRRNUMBER_info.csv 'http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?
 
 if test -f "/work/SPECIES.txt"; then
     #Species searched for on genbank file and has their coding regions downloaded. do on [ -r SPECIES.txt ] && reference.sh
-    grep -E 'Enterocytozoon bieneusi' assembly_summary_genbank.txt | cut -f 20 > ftp_folder.txt
+    grep -E '@SPECIES' assembly_summary_genbank.txt | cut -f 20 > ftp_folder.txt
     sed -i '4,$ d' ftp_folder.txt
     awk 'BEGIN{FS=OFS="/";filesuffix="cds_from_genomic.fna.gz"}{ftpdir=$0;asm=$10;file=asm"_"filesuffix;print "wget "ftpdir,file}' ftp_folder.txt > download_fna_files.sh
     bash download_fna_files.sh
@@ -86,12 +86,10 @@ mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 #PERFORM QUAST
 [ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
 rm /work/assemble.txt
-rm /work/SPECIES.txt
+
+
 rm /work/title.txt
-
-
-#stats R script that plots a graph of coverage by bowtie2 <3 
-#params for species/contaminants into the docker file would mean we can put it onto docker and then use wget to get all files needed
+inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
 #R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
 
 
