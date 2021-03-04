@@ -72,22 +72,24 @@ fi
 #MOVE FILES INTO OWN OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
-mkdir -p ~/user_records
-mkdir ${PWD}/@SRRNUMBER
-mv *@SRRNUMBER.* ${PWD}/@SRRNUMBER
-find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/@SRRNUMBER   ; done
-echo "$(cat title.txt)" | xargs mkdir
+
+mkdir ${PWD}/@TITLE
+mv *@SRRNUMBER.* ${PWD}/@TITLE
+find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/@TITLE ; done
+#echo "$(cat title.txt)" | xargs mkdir
 #find out how to change srrnumber below with the contents of title.txt
-mv mergedreference.fasta  ${PWD}/@SRRNUMBER
-sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@SRRNUMBER
-sudo mv ${PWD}/trimmedquality_data ${PWD}/@SRRNUMBER
-mv ftp_folder.txt ${PWD}/@SRRNUMBER
-mv @SRRNUMBER_info.csv ${PWD}/@SRRNUMBER
+mv mergedreference.fasta  ${PWD}/@TITLE
+sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@TITLE
+sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
+mv ftp_folder.txt ${PWD}/@TITLE
+mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 #PERFORM QUAST
-[ -r /work/assemble.txt ] && ls ${PWD}/@SRRNUMBER/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@SRRNUMBER/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
+[ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
 rm /work/assemble.txt
 rm /work/SPECIES.txt
 rm /work/title.txt
+
+
 #stats R script that plots a graph of coverage by bowtie2 <3 
 #params for species/contaminants into the docker file would mean we can put it onto docker and then use wget to get all files needed
 #R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
@@ -115,8 +117,8 @@ rm /work/title.txt
 
 #option for manually inputted reference genomes [ Another text box, check if its a fasta file ] *
 #optional quality control - have check for [ * .fastq]?? have to be fastq data *
-#split steps into separate bashf iles
-#allow coverage on each sequence?!?!
+#split steps into separate bashf iles*
+#allow coverage on each sequence?!?!~
 #assembly - using RagTag
 #change title/sra/era more in line with tax/genus/strain vs data
 #button that runs a quick statistical analysis on all folders that have SRRNO vs SPecies
