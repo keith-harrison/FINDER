@@ -35,7 +35,7 @@ ENV PATH $PATH:/opt/bowtie2
 RUN apt-get -qq update && apt-get -y upgrade && \
 	apt-get install -y python3-pip python3-dev build-essential
 
-RUN pip3 install --upgrade pip==9.0.1 && \
+RUN pip3 install --upgrade pip==21.0.1 && \
 	pip3 install --upgrade virtualenv
 
 RUN pip3 install --user --upgrade cutadapt && \
@@ -67,3 +67,28 @@ RUN  wget -q -O  quast-5.1.0rc1.tar.gz --no-check-certificate https://github.com
 	rm  quast-5.1.0rc1.tar.gz; 
 RUN sudo apt-get install bc
 
+RUN sudo apt-get install -y python
+RUN apt-get install liblzma-dev
+RUN sudo apt-get install -y build-essential
+RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz; \
+tar -zxvf bedtools-2.29.1.tar.gz; \
+cd bedtools2 ; \
+make; 
+
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+RUN apt-get update
+
+RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+RUN conda --version
+RUN conda install -c bioconda covtobed
+RUN pip install --user mappy
+RUN pip install RagTag
+RUN pip install seaborn
+RUN pip install pandas

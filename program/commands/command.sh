@@ -41,7 +41,7 @@ multiqc -n beforetrimmingquality ./*_fastqc.zip
 find . -name "*_fastqc*" -type f -delete 
 
 #PERFORM CUTADAPT ON DEFAULT SETTINGS
-ls *.fastq| cat | while read -r line; do cutadapt --cores=0 -o trimmed"$line" "$line"  ; done
+ls *.fastq| cat | while read -r line; do cutadapt --cores=4 -o trimmed"$line" "$line"  ; done
 
 #GENERATE QUALITY ANALYSIS FOR FILES POST TRIMMING
 fastqc trimmed*.fastq*
@@ -56,17 +56,21 @@ ls trimmed*.fastq| cat | while read -r line; do ./commands/bowtiecoverage.sh "$l
 
 
 
+#find . -name "*bam" -type f -delete 
 find . -name "*bt2" -type f -delete 
-find . -name "*bam*" -type f -delete 
+find . -name "*bai" -type f -delete 
 
 if test -f "/work/assemble.txt"; then
     #PERFORM ASSEMBLY BY SPADES USING TRUSTED CONTIGS FROM REFERENCE
-    ls trimmed*.fastq| cat | while read -r line; do python3 /usr/local/bin/spades.py --phred-offset 33 -s "$line" -o "$line".d   ; done
+#    ls trimmed*.fastq| cat | while read -r line; do python3 /usr/local/bin/spades.py --phred-offset 33 -s "$line" -o "$line".d   ; done
     #perform assembly by RagTag
     bowtie2-build mergedreference.fasta refgenome
-    ls trimmed*@SRRNUMBER.fastq.d/scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
+#    ls trimmed*@SRRNUMBER.fastq.d/scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
+    ls *.bam| cat | while read -r line; do covtobed "$line" > "$line".bed   ; done
     find . -name "*bt2" -type f -delete 
-    find . -name "*bam*" -type f -delete 
+    #find . -name "*bam" -type f -delete 
+    find . -name "*bai" -type f -delete 
+
 fi
 
 #MOVE FILES INTO OWN OUTPUT FOLDER
@@ -83,13 +87,13 @@ sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@TITLE
 sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
 mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
+mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE && mv genome.depth ${PWD}/@TITLE
 #PERFORM QUAST
 [ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
+[ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE && mv genome2.depth ${PWD}/@TITLE
 rm /work/assemble.txt
 
-
-rm /work/title.txt
-inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
+#inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
 #R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
 
 
@@ -98,7 +102,7 @@ inants into the docker file would mean we can put it onto docker and then use wg
 #outputs quast research 3
 #R 3
 #AWS 2
-#phylogeny 4
+#phylogeny 4~
 #entrypoint 2 *
 #paired/unpaired reads 1 *
 #github 3
@@ -117,9 +121,31 @@ inants into the docker file would mean we can put it onto docker and then use wg
 #optional quality control - have check for [ * .fastq]?? have to be fastq data *
 #split steps into separate bashf iles*
 #allow coverage on each sequence?!?!~
-#assembly - using RagTag
-#change title/sra/era more in line with tax/genus/strain vs data
+#assembly - using RagTag 
+#change title/sra/era more in line with tax/genus/strain vs data*
 #button that runs a quick statistical analysis on all folders that have SRRNO vs SPecies
-#change folder name to be NUMBERvsSPECIES(CHANGE TO ONE WORD)
+#change folder name to be NUMBERvsSPECIES(CHANGE TO ONE WORD)*
 #do bryonys test she sent (3gb file so watch out)
 #allow reference to be added as a text file in*
+
+#TO DO 
+#Monday
+#Python/R Graphs 1 - button making graphs for suffix or genus
+# which checks all folders recursively looking for bowtie coverage txt files when found put onto the same graph if in same folder
+#do graphs 
+#Look into Bam/Sam visualisation to see where are hits in SRA 
+#dont dispose of bam and make this 
+#RagTag Assembly 2 
+#Isca/Cloud AWS 3
+
+#TODO
+#set up graph creation of bowtie numbers wrt grep name find all bowties
+#do this https://medium.com/ngs-sh/coverage-analysis-from-the-command-line-542ef3545e2c for each for visulisation
+#Ragtag try and assemble 
+#Wednesday
+#CLOUDDD
+#Set up for next week 
+#Questionaire/Workshop 4
+#Test tonight with bryonys thing 
+
+#write thing
