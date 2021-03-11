@@ -2,3 +2,4 @@ docker
 pandas
 seaborn
 matplotlib
+numpy
