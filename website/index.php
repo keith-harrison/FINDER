@@ -79,7 +79,7 @@
   <label for = "assemble">Assemble:</label>
   <input type="checkbox" name="assemble" value="Yes" /><br><br>
 
-  <input type="submit" value="Start">
+  <input type="submit" name = "Start" value="Start">
   
 </form>
 <h2>Summary Statistics of projects created in /program/~</h2>
@@ -88,9 +88,13 @@ to input SRR number maybe not (would give a heatmap for multi references against
 Will activate a python script running a R file or just plucking up all /*/*bowtiecoverage.txt files putting ones in same folder on one plot/on top of eachother in different colours
 and seperate folders being subsequently below in same fashion.
 </p>
-
+<form method = "POST"  enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+<label for="stats">Aggregrate for:</label>
+<input type="text" id="stats" name="stats"><br><br>
+<input type="submit" name = "Stat" value="Stat">
+</form>
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST['Start'])) {
   $title = $_POST["title"];
   $sra = $_POST["sra"];
   $tax = $_POST["tax"];
@@ -125,17 +129,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   fwrite($myfile, "y");
   fclose($myfile);
 }
-
+if(isset($_POST['Stat'])) {
+  $stats = $_POST["stats"];
+  $myfile = fopen("./work/stats.txt", "w") or die("Unable to open file!");
+  fwrite($myfile,$stats);
+  fclose($myfile);
+}
 
  
 
 
-echo "<h2>Your Input:</h2>";
-echo $sra;
-echo "<br>";
-echo $tax;
-echo "<br>";
-echo $assemble;
+
 ?>
 </body>
 </html>

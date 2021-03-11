@@ -16,7 +16,7 @@ if __name__=="__main__":
                 container.exec_run('bash /program/commands/download.sh',workdir="/program")
                 started = False
             if os.path.isfile("/work/stats.txt") == True:
-                stats.main()
+                main()
 
             time.sleep(1)
 
