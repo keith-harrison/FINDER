@@ -51,10 +51,6 @@ RUN sudo apt-get -y install cmake
 
 RUN sudo apt-get install -y libbz2-dev
 
-RUN wget http://cab.spbu.ru/files/release3.15.0/SPAdes-3.15.0.tar.gz; \ 
-	tar -xzf SPAdes-3.15.0.tar.gz; \
-	rm SPAdes-3.15.0.tar.gz; \
-	PREFIX=/usr/local ./SPAdes-3.15.0/spades_compile.sh;
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN apt-get install dos2unix
@@ -67,13 +63,9 @@ RUN  wget -q -O  quast-5.1.0rc1.tar.gz --no-check-certificate https://github.com
 	rm  quast-5.1.0rc1.tar.gz; 
 RUN sudo apt-get install bc
 
-RUN sudo apt-get install -y python
+RUN sudo apt-get install -y python3.6
 RUN apt-get install liblzma-dev
 RUN sudo apt-get install -y build-essential
-RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz; \
-tar -zxvf bedtools-2.29.1.tar.gz; \
-cd bedtools2 ; \
-make; 
 
 ENV PATH="/root/miniconda3/bin:${PATH}"
 ARG PATH="/root/miniconda3/bin:${PATH}"
@@ -81,14 +73,12 @@ RUN apt-get update
 
 RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
 
-RUN wget \
-    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /root/.conda \
+RUN wget -q -O Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /conda \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh 
 RUN conda --version
-RUN conda install -c bioconda covtobed
-RUN pip install --user mappy
 RUN pip install RagTag
+RUN conda install -c bioconda minimap2
 RUN pip install seaborn
 RUN pip install pandas

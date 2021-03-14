@@ -62,13 +62,11 @@ find . -name "*bai" -type f -delete
 
 if test -f "/work/assemble.txt"; then
     #PERFORM ASSEMBLY BY SPADES USING TRUSTED CONTIGS FROM REFERENCE
-#    ls trimmed*.fastq| cat | while read -r line; do python3 /usr/local/bin/spades.py --phred-offset 33 -s "$line" -o "$line".d   ; done
+    ls trimmed*.fastq| cat | while read -r line; do python3 /root/miniconda3/bin/ragtag.py scaffold -o out --aligner "/root/miniconda3/bin/minimap2" mergedreference.fasta "$line" ; done
     #perform assembly by RagTag
     bowtie2-build mergedreference.fasta refgenome
-#    ls trimmed*@SRRNUMBER.fastq.d/scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
-    ls *.bam| cat | while read -r line; do covtobed "$line" > "$line".bed   ; done
+    #ls trimmed*@SRRNUMBER.fastq.d/scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
     find . -name "*bt2" -type f -delete 
-    #find . -name "*bam" -type f -delete 
     find . -name "*bai" -type f -delete 
 
 fi
@@ -89,7 +87,7 @@ mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE && mv genome.depth ${PWD}/@TITLE
 #PERFORM QUAST
-[ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
+#[ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
 [ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE && mv genome2.depth ${PWD}/@TITLE
 rm /work/assemble.txt
 
