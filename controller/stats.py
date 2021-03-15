@@ -20,8 +20,8 @@ def main():
         for file in os.listdir(i):
             if file.endswith("BowtieCoverage2.txt"):
                 f = open(os.path.join(i,file),"r")
-                name = file.removesuffix('.fastqBowtieCoverage2.txt')   
-                name=name+"a" 
+                name = file[:-len('.fastqBowtieCoverage2.txt')]  
+                name=name+"A" 
                 coveragefiles.append(name)
                 coverages.append(float(f.read().strip()))
                 f.close()

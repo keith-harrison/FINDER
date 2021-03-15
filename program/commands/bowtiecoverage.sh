@@ -18,3 +18,6 @@ echo "scale=4 ; $coverageamount /$lengthamount" | bc >> "$1"BowtieCoverage.txt
 
 rm coverage
 rm length
+rm genome.depth
+find . -name "*bt2" -type f -delete 
+find . -name "*bai" -type f -delete 

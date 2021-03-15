@@ -11,10 +11,13 @@ coverageamount=`cat coverage`
 
 bowtie2-inspect -s refgenome | awk '{ FS = "\t" } ; BEGIN{L=0}; {L=L+$3}; END{print L}' >> length 
 lengthamount=`cat length`
-samtools depth -aa mapping_result_sorted2.bam > genome2.depth
-python -c'import sys;  sys.path.append("/program/commands"); import plot_depth; plot_depth.plot_depth("genome2.depth", "depth2.png", "depth", '$lengthamount')'
+samtools depth -aa mapping_result_sorted2.bam > genome.depth
+python -c'import sys;  sys.path.append("/program/commands"); import plot_depth; plot_depth.plot_depth("genome.depth", "depth2.png", "depth", '$lengthamount')'
 
 
 echo "scale=4 ; $coverageamount /$lengthamount" | bc >> "$1"BowtieCoverage2.txt
 rm coverage
 rm length
+rm genome.depth
+find . -name "*bt2" -type f -delete 
+find . -name "*bai" -type f -delete 

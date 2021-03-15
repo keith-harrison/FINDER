@@ -19,6 +19,7 @@ def plot_depth(depth_report, output_name, plot_title, genome_size):
  
     """
     sns.set(rc={'figure.figsize':(11.7,8.27)})
+
     df = pd.read_csv(
     'genome.depth',
     sep = '\s+',names = ["Reference", "position", "depth"]
@@ -34,4 +35,3 @@ def plot_depth(depth_report, output_name, plot_title, genome_size):
     plt.savefig(output_name, dpi=400)
     plt.close()
  
-    print("Done :)")
