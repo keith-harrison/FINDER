@@ -112,19 +112,21 @@ if(isset($_POST['Start'])) {
   fclose($myfile);
   // If a taxa such as "Enterocytozoon bieneusi" has been inputted insert that into a file
   if(!empty($_POST["tax"])){
-  $myfile = fopen("./work/SPECIES.txt", "w") or die("Unable to open file!");
-  fwrite($myfile, $tax);
-  fclose($myfile);
+    $myfile = fopen("./work/SPECIES.txt", "w") or die("Unable to open file!");
+    fwrite($myfile, $tax);
+    fclose($myfile);
   } else {
 
     $target_dir = '/work/';
     $tempname = $_FILES["fileupload"]["tmp_name"];
     $target_file = $target_dir.basename("mergedreference.fasta");
     move_uploaded_file($tempname, $target_file);
-    $myfile = fopen("./work/start.txt", "w") or die("Unable to open file!");
-    fwrite($myfile, "y");
-    fclose($myfile);
+
   }
+  #Writes to a start file to tell the finder_controller_1 to start the pipeline in finder_program_1
+  $myfile = fopen("./work/start.txt", "w") or die("Unable to open file!");
+  fwrite($myfile, "y");
+  fclose($myfile);
 }
 // Or if the stat button has been pressed
 if(isset($_POST['Stat'])) {

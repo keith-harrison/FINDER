@@ -52,14 +52,14 @@ find . -name "*_fastqc*" -type f -delete
 #PERFORM BOWTIE2 ALIGNMENT TO LOOK AT COVERAGE
 bowtie2-build mergedreference.fasta refgenome
 
-ls trimmed*.fastq| cat | while read -r line; do ./commands/bowtiecoverage.sh "$line"   ; done
+ls trimmed*.fastq| cat | while read -r line; do bash ./commands/bowtiecoverage.sh "$line"   ; done
 
 
 if test -f "/work/assemble.txt"; then
     #PERFORM ASSEMBLY BY ragtag USING TRUSTED CONTIGS FROM REFERENCE
     ls trimmed*.fastq| cat | while read -r line; do python3 /root/miniconda3/bin/ragtag.py scaffold -o "$line".d --aligner "/root/miniconda3/bin/minimap2" mergedreference.fasta "$line" ; done
     #perform assembly by RagTag
-    ls trimmed*ERR2367946.fastq.d/ragtag.scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
+    ls trimmed*ERR2367946.fastq.d/ragtag.scaffolds.fasta | cat | while read -r line; do bash ./commands/bowtiecoverage2.sh "$line"   ; done
 
 
 fi

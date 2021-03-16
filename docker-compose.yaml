@@ -7,12 +7,12 @@ services:
       #Uploads.ini changed to allow .php files to download larger files - for manual input of fasta
       volumes:
         - ./website:/var/www/html
-        - ./website/work
+        - ./website/work:/work
         - ./program:/program
         - ./website/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-      #Makes it so if the user puts localhost:5000 into a browser the website will appear 
+      #Makes it so if the user puts localhost:80 into a browser the website will appear 
       ports:
-        - 5000:80
+        - 80:80
       #Not neccesary but sometimes allow easier work with python's docker sdk
       networks:
         - frontend        
