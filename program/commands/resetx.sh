@@ -1,3 +1,4 @@
+#Allows variables to be changed at the end back to @ things
 sed -i -e  "s/$(sed 's:/:\\/:g' /work/title.txt)/@TITLE/g" /program/commands/command.sh
 sed -i -e  "s/$(sed 's:/:\\/:g' /work/SRAFILE.txt)/@SRRNUMBER/g" /program/commands/command.sh
 if test -f "/work/SPECIES.txt"; then

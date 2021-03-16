@@ -11,12 +11,13 @@ from matplotlib import (pyplot as plt,
 def plot_depth(depth_report, output_name, plot_title, genome_size):
     """Plot genome Depth across genome.
  
-    Args:
+    :Param:
         depth_report (str): Path to samtool's depth file.
         output_name (str): Path to output PNG image.
         plot_title (str): Plot title.
         genome_size (int): Genome size.
- 
+    :Output:
+        Save figure - showing coverage of reference sequence.
     """
     sns.set(rc={'figure.figsize':(11.7,8.27)})
 

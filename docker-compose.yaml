@@ -1,17 +1,23 @@
 version: '3'
 services:
     website:
+      #Builds dockerfile in ./website directory
       build: ./website
+      #Assigns the following folder on host machine to the directories on the left side
+      #Uploads.ini changed to allow .php files to download larger files - for manual input of fasta
       volumes:
         - ./website:/var/www/html
         - ./website/work
         - ./program:/program
         - ./website/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      #Makes it so if the user puts localhost:5000 into a browser the website will appear 
       ports:
         - 5000:80
+      #Not neccesary but sometimes allow easier work with python's docker sdk
       networks:
-        - frontend
+        - frontend        
     controller:
+      #Stdin_open and tty kept true for potential error handling
       stdin_open: true 
       tty: true   
       build: ./controller
@@ -26,7 +32,7 @@ services:
         - backend
         - frontend
     program:
-      stdin_open: true # docker run -i
+      stdin_open: true 
       tty: true   
       working_dir: /program
       build: ./program

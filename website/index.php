@@ -1,8 +1,5 @@
 <html>
     <head>
-    <?php 
-    $sra=$assemble=$tax=""
-    ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
  
@@ -10,7 +7,7 @@
     </style>
 
 
-        <title>Finder</title>
+        <title>FINDER</title>
     </head>
 
 <body>
@@ -22,16 +19,14 @@
     and subsequent backend script that will perform:
     <ul>
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
-    <li>Bowtie and SAMtools to create an alignment between the data and reference
-    genome and then calculate breadth of coverage found at atleast 1x depth. </li>
-    <li>SPAdes to create scaffolds/contigs usable in reference step</li>
-    <li>MetaCompass/AMOScmp to create an Metagenomic Assembled Genome using the reference as trusted contigs 
-    and De Novo methods. Performing the assembly and binning steps. </li>
+    <li>An alignment using Bowtie and SAMtools between the data and reference
+    genome and then calculate breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage.sh files </li>
+    <li>RagTag to create an Metagenomic Assembled Genome using the reference as trusted contigs 
+    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. </li>
     <li>Quast to look at the quality and accuracy and to compare against the reference.
-    Outputting all data needed into a zip. </li>
-    (Reference-based assembly via MetaCompass or AMOScmp yet to be implemented)
+    Outputting all data needed into a folder. </li>
     </ul>
-    Please wait for it to be finished before trying another input.
+    Please wait for it to be finished before trying another input, This can be checked in the directory program.
     </p>
 
     <p>Input SRA file with SRR accession number
@@ -56,11 +51,7 @@
     Advised to test with turning off assembly first.
     Example of Title: EnterocytozoonbieneusiVSERR2367946 as this will be a folder name do not include spaces or any special characters
   
-    <ul>
-        <?php
-           $sra = $tax = $assemble = "";
-        ?>
-    </ul>
+
 
 <h2>Input for program</h2>
 <form method = "POST"  enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
@@ -94,16 +85,20 @@ and seperate folders being subsequently below in same fashion.
 <input type="submit" name = "Stat" value="Stat">
 </form>
 <?php
+// If the start button has been pressed
 if(isset($_POST['Start'])) {
+  // Assigns all necessary variables from inputs in previous form
   $title = $_POST["title"];
   $sra = $_POST["sra"];
   $tax = $_POST["tax"];
+  // Also assigns the optional assemble to just contain "y" if assembling against reference
   if(isset($_POST['assemble'])) {
     $assemble = "y";
     $myfile = fopen("./work/assemble.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $assemble);
     fclose($myfile);
  }
+  // Makes work directory if nonexistent to store these files in 
   if (!is_dir("work"))
 {
     mkdir("work", 0755, true);
@@ -115,21 +110,25 @@ if(isset($_POST['Start'])) {
   $myfile = fopen("./work/SRAFILE.txt", "w") or die("Unable to open file!");
   fwrite($myfile, $sra);
   fclose($myfile);
-  
+  // If a taxa such as "Enterocytozoon bieneusi" has been inputted insert that into a file
   if(!empty($_POST["tax"])){
   $myfile = fopen("./work/SPECIES.txt", "w") or die("Unable to open file!");
   fwrite($myfile, $tax);
   fclose($myfile);
+  } else {
+
+    $target_dir = '/work/';
+    $tempname = $_FILES["fileupload"]["tmp_name"];
+    $target_file = $target_dir.basename("mergedreference.fasta");
+    move_uploaded_file($tempname, $target_file);
+    $myfile = fopen("./work/start.txt", "w") or die("Unable to open file!");
+    fwrite($myfile, "y");
+    fclose($myfile);
   }
-  $target_dir = '/work/';
-  $tempname = $_FILES["fileupload"]["tmp_name"];
-  $target_file = $target_dir.basename("mergedreference.fasta");
-  move_uploaded_file($tempname, $target_file);
-  $myfile = fopen("./work/start.txt", "w") or die("Unable to open file!");
-  fwrite($myfile, "y");
-  fclose($myfile);
 }
+// Or if the stat button has been pressed
 if(isset($_POST['Stat'])) {
+  // Write contents of form to stats.txt file
   $stats = $_POST["stats"];
   $myfile = fopen("./work/stats.txt", "w") or die("Unable to open file!");
   fwrite($myfile,$stats);

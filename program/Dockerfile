@@ -1,3 +1,4 @@
+#FROM command installs the default ubuntu package 
 FROM ubuntu
 
 RUN apt-get update && apt-get install -y software-properties-common
@@ -13,6 +14,7 @@ RUN apt-get -qq update && apt-get -y upgrade && \
     apt-get install -y software-properties-common build-essential && \
     apt-get install -y python3-pip python3-dev build-essential && \
     apt-get install -y wget libxml-libxml-perl
+
 
 RUN apt-get install -y samtools bcftools
 

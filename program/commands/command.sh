@@ -2,23 +2,23 @@ rm /work/start.txt
 #Downloads Genbank file 
 [ ! -r assembly_summary_genbank.txt ] && wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt
 #DOWNLOAD SRA FILES (SRR FILES)
-fasterq-dump @SRAFILE @SRAFILE -O ${PWD} 
+fasterq-dump ERR2367946 ERR2367946 -O ${PWD} 
 #TURN PAIRED READS INTO SOMETHING ALIKE SINGLE
-[ -r @SRAFILE_1.fastq ] && for i in {1..2}; do cat @SRAFILE_"$i".fastq >> @SRAFILE.fastq ; done
+[ -r ERR2367946_1.fastq ] && for i in {1..2}; do cat ERR2367946_"$i".fastq >> ERR2367946.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER
 #debate whether or not to remove splitting on large files on AWS
-split -b 20G -d @SRAFILE.fastq @SRAFILE.fastq
+split -b 20G -d ERR2367946.fastq ERR2367946.fastq
 
-rm @SRAFILE_*.fastq
+rm ERR2367946_*.fastq
 #RENAME FILES TO BE NICER
-ls *.fastq0*| cat -n | while read n f; do mv -n "$f" "$n"@SRAFILE.fastq; done 
-rm @SRAFILE.fastq
+ls *.fastq0*| cat -n | while read n f; do mv -n "$f" "$n"ERR2367946.fastq; done 
+rm ERR2367946.fastq
 #DOWNLOAD METADATA BEHIND SRA FILE AND CODING REGIONS FROM ISOLATES WANTING TO BE FOUND
-wget -O ./@SRAFILE_info.csv 'http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term= @SRAFILE'
+wget -O ./ERR2367946_info.csv 'http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term= ERR2367946'
 
 if test -f "/work/SPECIES.txt"; then
     #Species searched for on genbank file and has their coding regions downloaded. do on [ -r SPECIES.txt ] && reference.sh
-    grep -E '@SPECIES' assembly_summary_genbank.txt | cut -f 20 > ftp_folder.txt
+    grep -E 'Enterocytozoon bieneusi' assembly_summary_genbank.txt | cut -f 20 > ftp_folder.txt
     sed -i '4,$ d' ftp_folder.txt
     awk 'BEGIN{FS=OFS="/";filesuffix="cds_from_genomic.fna.gz"}{ftpdir=$0;asm=$10;file=asm"_"filesuffix;print "wget "ftpdir,file}' ftp_folder.txt > download_fna_files.sh
     bash download_fna_files.sh
@@ -59,30 +59,31 @@ if test -f "/work/assemble.txt"; then
     #PERFORM ASSEMBLY BY ragtag USING TRUSTED CONTIGS FROM REFERENCE
     ls trimmed*.fastq| cat | while read -r line; do python3 /root/miniconda3/bin/ragtag.py scaffold -o "$line".d --aligner "/root/miniconda3/bin/minimap2" mergedreference.fasta "$line" ; done
     #perform assembly by RagTag
-    bowtie2-build mergedreference.fasta refgenome
-    ls trimmed*@SRAFILE.fastq.d/ragtag.scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
+    ls trimmed*ERR2367946.fastq.d/ragtag.scaffolds.fasta | cat | while read -r line; do ./commands/bowtiecoverage2.sh "$line"   ; done
 
 
 fi
+
+#THESE FILES FROM BOWTIE RELATING TO THE REFERENCE GENOME AND ITS INDEXING CAN BE REUSED FOR BOTH SO ONLY DELETED NOW
+find . -name "*bt2" -type f -delete 
+find . -name "*bai" -type f -delete 
 
 #MOVE FILES INTO OWN OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
 
-mkdir ${PWD}/@TITLE
-mv *@SRAFILE.* ${PWD}/@TITLE
-find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/@TITLE ; done
-#echo "$(cat title.txt)" | xargs mkdir
-#find out how to change srrnumber below with the contents of title.txt
-mv mergedreference.fasta  ${PWD}/@TITLE
-sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@TITLE
-sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
-mv ftp_folder.txt ${PWD}/@TITLE
-mv @SRAFILE_info.csv ${PWD}/@TITLE
-mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
+mkdir ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+mv *ERR2367946.* ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/ERR2367946vsEnterocytozoonbieneusi ; done
+mv mergedreference.fasta  ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+sudo mv ${PWD}/trimmedquality_data ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+mv ftp_folder.txt ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+mv ERR2367946_info.csv ${PWD}/ERR2367946vsEnterocytozoonbieneusi
+mv mapping_result_sorted.bam ${PWD}/ERR2367946vsEnterocytozoonbieneusi && mv depth.png ${PWD}/ERR2367946vsEnterocytozoonbieneusi 
 #PERFORM QUAST
-[ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/ragtag.scaffolds.fasta -o "$line"referencereport   ; done
-[ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE 
+[ -r /work/assemble.txt ] && ls ${PWD}/ERR2367946vsEnterocytozoonbieneusi/trimmed*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/ERR2367946vsEnterocytozoonbieneusi/mergedreference.fasta "$line".d/ragtag.scaffolds.fasta -o "$line"referencereport   ; done
+[ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/ERR2367946vsEnterocytozoonbieneusi && mv depth2.png ${PWD}/ERR2367946vsEnterocytozoonbieneusi 
 rm /work/assemble.txt
 
 #inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
