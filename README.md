@@ -13,7 +13,7 @@ website can then be accessed at localhost:80 and following instructions there fi
 
 ### Google Cloud Setup
 Requires Filezilla and Putty and a google cloud account (trials are available) does not require anything else.
-Start creating containerized optimsized os machine e2-standard-4 is a good starting one to test on and set the storage to around 100GB but small studies should only use around 15GB
+Start creating containerized optimsized os machine e2-standard-4 is a good starting one to test on and set the storage to around 100GB but small studies should only use around 15GB Allow HTTP traffic, Security SSH Keys> follow below
 Puttygen make a private key and set comment to ur account name e.g. guyname123@gmail.com make the comment guyname123 and save the private key and copy the ssh-rsa part into the ssh key part on the server creation
 run server and git clone and cd into FINDER and do docker run ------
 this will cause a docker container to run the docker compose image and build it alike to what would happen on the local machine
@@ -22,6 +22,7 @@ Filezilla will need refreshing quite constantly if you are waiting for files to 
 when server is up connect to ssh and cd into FINDER and docker-compose up and should be all ready
 The website for data input can then be accessed using externalip:80
 There are sometimes file permission issues so the bash file will need to be set to chmod 777 so beware any issues with this Some files persist and cannot be deleted though.
+fix chmod on work folder is weird
 
 
 ## Contributing
