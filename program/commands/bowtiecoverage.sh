@@ -20,7 +20,7 @@ lengthamount=`cat length`
 samtools depth -aa mapping_result_sorted.bam > genome.depth
 python -c'import sys;  sys.path.append("/program/commands"); import plot_depth; plot_depth.plot_depth("genome.depth", "depth.png", "depth", '$lengthamount')'
 #Still need to x100
-echo "scale=4 ; $coverageamount /$lengthamount" | bc >> "$1"BowtieCoverage.txt
+echo "scale=4 ; 100 * $coverageamount /$lengthamount" | bc >> "$1"BowtieCoverage.txt
 
 rm coverage
 rm length

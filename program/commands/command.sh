@@ -38,6 +38,7 @@ fi
 fastqc *.fastq* 
 
 multiqc -n beforetrimmingquality ./*_fastqc.zip
+
 find . -name "*_fastqc*" -type f -delete 
 
 #PERFORM CUTADAPT ON DEFAULT SETTINGS
@@ -71,7 +72,8 @@ find . -name "*bai" -type f -delete
 #MOVE FILES INTO OWN OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
-
+chmod -R 777 beforetrimmingquality
+chmod -R 777 trimmedquality
 mkdir ${PWD}/@TITLE
 mv *@SRRNUMBER.* ${PWD}/@TITLE
 find . *trim* -maxdepth 0 -type f | cat | while read -r line; do sudo mv "$line" ${PWD}/@TITLE ; done
