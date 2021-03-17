@@ -9,6 +9,7 @@ For this package you can easily run it on a local machine or a Google Cloud web 
 Install Docker for your OS, Windows machine will also additionally need WSL
 git clone this directory 
 cd to Finder in terminal and do docker-compose up
+website can then be accessed at localhost:80 and following instructions there files will be saved in files located in ~/FINDER/program folder.
 
 ### Google Cloud Setup
 Requires Filezilla and Putty and a google cloud account (trials are available) does not require anything else.
@@ -20,7 +21,7 @@ open up filezilla and go into edit > settings > sftp > and add the private key f
 Filezilla will need refreshing quite constantly if you are waiting for files to run.
 when server is up connect to ssh and cd into FINDER and docker-compose up and should be all ready
 The website for data input can then be accessed using externalip:80
-There are sometimes file permission issues so the bash file will need to be set to chmod 777 so beware any issues with this 
+There are sometimes file permission issues so the bash file will need to be set to chmod 777 so beware any issues with this Some files persist and cannot be deleted though.
 
 
 ## Contributing
