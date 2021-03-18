@@ -8,8 +8,10 @@ services:
       volumes:
         - ./website:/var/www/html
         - ./website/work:/work
-        - ./program:/program
+        - ./website/program:/program
         - ./website/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+        - ./website/apache2.conf:/etc/apache2/apache2.conf
+
       #Makes it so if the user puts localhost:80 into a browser the website will appear 
       ports:
         - 80:80
@@ -27,17 +29,17 @@ services:
         -  /var/run/docker.sock:/var/run/docker.sock
         - ./website:/var/www/html
         - ./website/work:/work
-        - ./program:/program
+        - ./website/program:/program
       networks:
         - backend
         - frontend
     program:
       stdin_open: true 
       tty: true   
-      working_dir: /program
-      build: ./program
+      working_dir: ./website/program
+      build: ./website/program
       volumes: 
-        - ./program:/program
+        - ./website/program:/program
         - ./website/work:/work
       networks:
         - backend
