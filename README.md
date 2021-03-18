@@ -22,12 +22,17 @@ docker-compose up
 
 ### Google Cloud Setup
 
-Prerequisites
-
+#### Regular Approach
 Before you continue, ensure you have met the following requirements:
+* Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
+* Then execute the code below to start the program, will take a while on first execution.
+* Follow the instructions on the webpage to then access the items.
+
+#### Filezilla and PuTTY approach
+Before you continue, ensure you have met the following requirements:
+* Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
 * [Filezilla Client](https://filezilla-project.org/) is installed 
 * [PuTTY](https://www.putty.org/)
-* Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
 * Use PuTTYgen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
 * Then putting the ssh-rsa field at the top of PuTTYgen into Security SSH Keys on the google cloud instance settings.
 * Start running the server by running the code below, website can be accessed at exeternalip:80.
@@ -42,6 +47,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="
 * Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
 * To connect to the web servers file system put the host as sftp://exeternalip and the username as the comment set when creating it which should also be your username. 
 * Files can be easily accessed and downloaded from this area.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
