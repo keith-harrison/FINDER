@@ -12,11 +12,12 @@ Prerequisites
 Before you continue, ensure you have met the following requirements:
 * You have installed Docker for your operating system.
 * If you are on windows then you will also need WSL.
-* git installed/or a download of the above folders
-Steps 
-* git clone this directory 
-* cd to Finder in terminal and do docker-compose up
-* load up website at localhost:80
+```bat
+git clone https://github.com/keith-harrison/FINDER/
+cd FINDER
+docker-compose up 
+```
+* Access website at localhost:80
 * instructions detailed on website and files saved to ~/FINDER/program folder.
 
 ### Google Cloud Setup
@@ -29,7 +30,7 @@ Before you continue, ensure you have met the following requirements:
 * Google Cloud Account with Credit on (~£1 per day container optimsized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
 * Use Puttygen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
 * Then putting the ssh-rsa field in the top into Security SSH Keys on the google cloud instance settings.
-* Start running the server by running the code below.
+* Start running the server by running the code below, website can be accessed at exeternalip:80.
 ```bat
 #There are some issues with permissions so chmod is needed
 #Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
