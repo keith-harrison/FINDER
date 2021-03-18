@@ -26,10 +26,10 @@ Prerequisites
 
 Before you continue, ensure you have met the following requirements:
 * Filezilla is installed 
-* Putty is installed
+* PuTTY is installed
 * Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
-* Use Puttygen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
-* Then putting the ssh-rsa field in the top into Security SSH Keys on the google cloud instance settings.
+* Use PuTTYgen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
+* Then putting the ssh-rsa field at the top of PuTTYgen into Security SSH Keys on the google cloud instance settings.
 * Start running the server by running the code below, website can be accessed at exeternalip:80.
 ```bat
 #There are some issues with permissions so chmod is needed
