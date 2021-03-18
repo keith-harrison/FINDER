@@ -10,7 +10,7 @@ services:
         - ./website/work:/work
         - ./website/program:/program
         - ./website/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-        - ./website/apache2.conf:/etc/apache2/apache2.conf
+        - ./website/apache2.conf:/etc/apache2/sites-enabled/apache2.conf
 
       #Makes it so if the user puts localhost:80 into a browser the website will appear 
       ports:
@@ -36,11 +36,11 @@ services:
     program:
       stdin_open: true 
       tty: true   
-      working_dir: ./website/program
+      working_dir: /program
       build: ./website/program
       volumes: 
-        - ./website/program:/program
         - ./website/work:/work
+        - ./website/program:/program
       networks:
         - backend
 
