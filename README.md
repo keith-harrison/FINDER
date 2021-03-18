@@ -6,24 +6,40 @@ This tool is intended to work alongside blast screening to determine whether or 
 For this package you can easily run it on a local machine or a Google Cloud web service.
 
 ### Local Machine
-Install Docker for your OS, Windows machine will also additionally need WSL
-git clone this directory 
-cd to Finder in terminal and do docker-compose up
-website can then be accessed at localhost:80 and following instructions there files will be saved in files located in ~/FINDER/program folder.
+
+Prerequisites
+
+Before you continue, ensure you have met the following requirements:
+* You have installed Docker for your operating system.
+* If you are on windows then you will also need WSL.
+* git installed/or a download of the above folders
+Steps 
+* git clone this directory 
+* cd to Finder in terminal and do docker-compose up
+* load up website at localhost:80
+* instructions detailed on website and files saved to ~/FINDER/program folder.
 
 ### Google Cloud Setup
-Requires Filezilla and Putty and a google cloud account (trials are available) does not require anything else.
-Start creating containerized optimsized os machine e2-standard-4 is a good starting one to test on and set the storage to around 100GB but small studies should only use around 15GB Allow HTTP traffic, Security SSH Keys> follow below
-Puttygen make a private key and set comment to ur account name e.g. guyname123@gmail.com make the comment guyname123 and save the private key and copy the ssh-rsa part into the ssh key part on the server creation
-run server and git clone and cd into FINDER and do docker run ------
-this will cause a docker container to run the docker compose image and build it alike to what would happen on the local machine
-open up filezilla and go into edit > settings > sftp > and add the private key file for authentication and put the host as sftp://externalip and username as the comment set before in our case guyname123
-Filezilla will need refreshing quite constantly if you are waiting for files to run.
-when server is up connect to ssh and cd into FINDER and docker-compose up and should be all ready
-The website for data input can then be accessed using externalip:80
-There are sometimes file permission issues so the bash file will need to be set to chmod 777 so beware any issues with this Some files persist and cannot be deleted though.
-fix chmod on work folder is weird
 
+Prerequisites
+
+Before you continue, ensure you have met the following requirements:
+* Filezilla is installed 
+* Putty is installed
+* Google Cloud Account with Credit on (~£1 per day container optimsized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
+* Use Puttygen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
+* Then putting the ssh-rsa field in the top into Security SSH Keys on the google cloud instance settings.
+* Start running the server by running the code below.
+```bat
+#There are some issues with permissions so chmod is needed
+#Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
+git clone https://github.com/keith-harrison/FINDER/
+cd FINDER
+chmod -R 777 FINDER 
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="$PWD" docker/compose:1.24.0 up
+```
+* Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
+* To connect to the web servers file system put the host as sftp://exeternalip and the username as the comment set when creating it which should also be your username. 
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
