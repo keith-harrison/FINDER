@@ -41,7 +41,7 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="
 ```
 * Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
 * To connect to the web servers file system put the host as sftp://exeternalip and the username as the comment set when creating it which should also be your username. 
-
+* Files can be easily accessed and downloaded from this area.
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
