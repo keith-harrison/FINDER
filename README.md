@@ -35,8 +35,8 @@ Before you continue, ensure you have met the following requirements:
 #There are some issues with permissions so chmod is needed
 #Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
 git clone https://github.com/keith-harrison/FINDER/
-cd FINDER
 chmod -R 777 FINDER 
+cd FINDER
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="$PWD" docker/compose:1.24.0 up
 ```
 * Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
