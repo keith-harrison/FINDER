@@ -10,8 +10,8 @@ For this package you can easily run it on a local machine or a Google Cloud web 
 Prerequisites
 
 Before you continue, ensure you have met the following requirements:
-* You have installed Docker for your operating system.
-* If you are on windows then you will also need WSL.
+* You have installed [Docker](https://docs.docker.com/get-docker/) for your operating system.
+* If you are on windows then you will also need [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 ```bat
 git clone https://github.com/keith-harrison/FINDER/
 cd FINDER
@@ -25,8 +25,8 @@ docker-compose up
 Prerequisites
 
 Before you continue, ensure you have met the following requirements:
-* Filezilla is installed 
-* PuTTY is installed
+* [Filezilla Client](https://filezilla-project.org/) is installed 
+* [PuTTY](https://www.putty.org/)
 * Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
 * Use PuTTYgen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
 * Then putting the ssh-rsa field at the top of PuTTYgen into Security SSH Keys on the google cloud instance settings.
@@ -35,8 +35,8 @@ Before you continue, ensure you have met the following requirements:
 #There are some issues with permissions so chmod is needed
 #Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
 git clone https://github.com/keith-harrison/FINDER/
-cd FINDER
 chmod -R 777 FINDER 
+cd FINDER
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="$PWD" docker/compose:1.24.0 up
 ```
 * Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
