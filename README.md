@@ -18,24 +18,14 @@ cd FINDER
 docker-compose up 
 ```
 * Access website at localhost:80
-* instructions detailed on website and files saved to ~/FINDER/program folder.
+* instructions detailed on website and files saved to localhost/program
 
 ### Google Cloud Setup
 
-#### Regular Approach
 Before you continue, ensure you have met the following requirements:
 * Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
-* Then execute the code below to start the program, will take a while on first execution.
-* Follow the instructions on the webpage to then access the items.
-
-#### Filezilla and PuTTY approach
-Before you continue, ensure you have met the following requirements:
-* Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
-* [Filezilla Client](https://filezilla-project.org/) is installed 
-* [PuTTY](https://www.putty.org/)
-* Use PuTTYgen to generate a public and private key, save the private key and set the comment to your account name on google cloud (e.g. guyname if your email is guyname@gmail.com).
-* Then putting the ssh-rsa field at the top of PuTTYgen into Security SSH Keys on the google cloud instance settings.
-* Start running the server by running the code below, website can be accessed at exeternalip:80.
+* Using container optimized machine, e2-standard-8 as the bare minimum with 100GB of storage and allow HTTP traffic
+* Create the VM instance and SSH performing the code below.
 ```bat
 #There are some issues with permissions so chmod is needed
 #Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
@@ -44,9 +34,9 @@ chmod -R 777 FINDER
 cd FINDER
 docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="$PWD" docker/compose:1.24.0 up
 ```
-* Open up filezilla, go to edit > settings > sftp > add private key and put the private key file from before in.
-* To connect to the web servers file system put the host as sftp://exeternalip and the username as the comment set when creating it which should also be your username. 
-* Files can be easily accessed and downloaded from this area.
+* Access website at ip given on VM instance page externalip:80 
+* instructions detailed on website and files can be accessed on externalip/program
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
