@@ -21,7 +21,12 @@ if __name__=="__main__":
             container.exec_run('bash /program/commands/download.sh',workdir="/program")
         #If the summary statistics option is chosen then run the stats function (imported the main function from stats.py)
         if os.path.isfile("/work/stats.txt") == True:
-            main()
+            try:
+                main()
+            except:
+                #Remove file if expected input into summary statistics parameter is incorrect
+                if os.path.isfile("/work/stats.txt"):
+                    os.remove("/work/stats.txt")
         #Set a sleep function loop not going off as often causing computational stress on servers/systems.
         time.sleep(1)
 
