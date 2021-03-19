@@ -23,7 +23,7 @@ docker-compose up
 ### Google Cloud Setup
 
 Before you continue, ensure you have met the following requirements:
-* Google Cloud Account with Credit on (~£1 per day container optimized os machine e2-standard-4 or 8 with 100GB, Allow HTTP traffic recommended)
+* Google Cloud Account with Credit on (~£1/day)
 * Using container optimized machine, e2-standard-8 as the bare minimum with 100GB of storage and allow HTTP traffic
 * Create the VM instance and SSH performing the code below.
 ```bat
