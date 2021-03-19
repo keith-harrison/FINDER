@@ -24,7 +24,7 @@ docker-compose up
 
 Before you continue, ensure you have met the following requirements:
 * Google Cloud Account with Credit on (~£1/day)
-* Using container optimized machine, e2-standard-8 as the bare minimum with 100GB of storage and allow HTTP traffic
+* Using container optimized machine os, e2-standard-4 as with 100GB of storage and allow HTTP traffic
 * Create the VM instance and SSH performing the code below.
 ```bat
 #There are some issues with permissions so chmod is needed
