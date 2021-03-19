@@ -2,7 +2,11 @@
     <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
- 
+
+img {
+  border: 5px solid #555;
+}
+
 
     </style>
 
@@ -11,45 +15,50 @@
     </head>
 
 <body>
-    <h1>SRA file and Taxonomy Input</h1>
+    <h1>Raw sequence data against Reference comparison</h1>
 
 
     <p>
-    This is a front end user interface which triggers a container
-    and subsequent backend script that will perform:
-    <ul>
+    This program is intended to take in FASTQ data from SRA/ERA/DRA studies which can be initially screened on NCBI using blast to find studies for further analysis.
+    FINDER intends to give a better picture of the coverage by performing the steps detailed below and outputting statistics and graphs for researchers to determine whether or not the raw sequence
+    data found in metagenomic/microbiome studies matches up with current reference databases, using annotated coding regions from the GenBank database and the coverage of these reference sequences.
+
+    <ul> Tools
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
-    <li>An alignment using Bowtie and SAMtools between the data and reference
-    genome and then calculate breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage.sh files </li>
+    <li>Alignment created using Bowtie between the reference and raw data  </li>
+    <li>SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files</li>
     <li>RagTag to create an Metagenomic Assembled Genome using the reference as trusted contigs 
-    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. </li>
-    <li>Quast to look at the quality and accuracy and to compare against the reference.
-    Outputting all data needed into a folder. </li>
+    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. Takes a long time on local/low spec machines </li>
+    <li>Quast to look at the quality and accuracy and to compare against the reference.</li>
+    Outputting all these results into the folder which can be found at the "currentip"/program/
     </ul>
-    Please wait for it to be finished before trying another input, This can be checked in the directory program.
+    Please wait for it to be finished before trying another input, and refresh often to see whether or not the program is finished, evident when all files have been moved into the folder named after the title field.
     </p>
-
-    <p>Input SRA file with SRR accession number
-    This program will not help with input.
-    For example for SRA file "ERR2367946" or "SRR13668442"
-    and genome input is entered via taxonomy. This only uses 
-    the reference genbank database so can be pretty limited for
-    certain species of microsporidia. These are inputted like 
-    "Enterocytozoon bieneusi" or "Nosema ceranae", do not include quotes in input. </p>
-    <p>In addition to taxonomy the use of the unique keys or study numbers
-     that the genbank file can also be used but should be careful. 
-     Furthermore if it is limited on the reference genome on the genbank file
-     then the user can also input their own sequences in the form of a .fasta file
-     DO NOT input a taxonomy and .fasta file at the same time.
-     </p>
+    <h4>Title input</h4>
     <p>
-    For the program to find reference genomes and scaffolds we utilise the assembly_summary_genbank.txt file which summarises the databases described below.
-    GenBank sequence records are owned by the original submitter and cannot be altered by a third party. RefSeq sequences are not part of the INSDC but are derived from INSDC sequences to provide non-redundant curated data representing our current knowledge of known genes
-    </p>
-    
     Please mind for leading and trailing spaces in input.
     Advised to test with turning off assembly first.
     Example of Title: EnterocytozoonbieneusiVSERR2367946 as this will be a folder name do not include spaces or any special characters
+    </p>
+    <h4>Raw Data (SRA/ERA/DRA)input</h4>
+    <p>Input SRA file with SRR accession number. For example for SRA file "ERR2367946" or "SRR13668442". NCBI Sequence Read Archive (SRA) stores sequence and quality data (fastq files) in aligned or unaligned formats from NextGen sequencing platforms.
+    'DRA' is also a common file type from the Data bank of Japan and 'EBA' matching 'ERR' files from the European bioinformatics institute.<p>
+    <h4>Reference input</h4>
+    <p> Meanwhile reference input can take the form of a .fasta file, or if you have knowledge of the genbank files you can put a taxonomy in the taxonomy field or a bioproject id or any other identifiers that the genbank files uses e.g. "Enterocytozoon bieneusi" as the genbank files in my program use coding regions it can be limited in the number of reference sequences used.
+     or "Nosema ceranae", do not include quotes in input. </p>
+    <p>DO NOT input a taxonomy and .fasta file at the same time.
+     </p>
+    <h4>Genbank database info</h4>
+    <p>
+    For the program to find reference genomes and scaffolds we utilise the assembly_summary_genbank.txt file which summarises the databases described below, can be updated automatically if the file is deleted.
+    GenBank sequence records are owned by the original submitter and cannot be altered by a third party. RefSeq sequences are not part of the INSDC but are derived from INSDC sequences to provide non-redundant curated data representing our current knowledge of known genes
+    </p>
+    <h3>Example inputs</h3>
+    <img src="websiteimages/input1.png" alt="Example input 1">
+    <img src="websiteimages/input2.png" alt="Example input 2">
+    <img src="websiteimages/inputstats.png" alt="Example input for stats">
+
+
   
 
 
