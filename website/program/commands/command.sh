@@ -96,52 +96,13 @@ rm /work/assemble.txt
 
 
 #TO DO 
-#webservice 2 
+
 #outputs quast research 3
-#R 3
-#AWS 2
-#phylogeny 4~
-#entrypoint 2 *
-#paired/unpaired reads 1 *
-#github 3
-#bryony meeting 2 *
 #bryony workshop 4
-#combining assemblies (may not bother if on aws because high memory thing) 1 ~
-#steps into containers 2 *
 #phred 3
 #control 1 ~ meh
-
-#clustalx
-#update genbank file [wget thing] *
-#mega phylogeny
-
-#option for manually inputted reference genomes [ Another text box, check if its a fasta file ] *
-#optional quality control - have check for [ * .fastq]?? have to be fastq data *
-#split steps into separate bashf iles*
-#allow coverage on each sequence?!?!~
 #assembly - using RagTag 
-#change title/sra/era more in line with tax/genus/strain vs data*
-#button that runs a quick statistical analysis on all folders that have SRRNO vs SPecies
-#change folder name to be NUMBERvsSPECIES(CHANGE TO ONE WORD)*
-#do bryonys test she sent (3gb file so watch out)
-#allow reference to be added as a text file in*
-
-#TO DO 
-#Monday
-#Python/R Graphs 1 - button making graphs for suffix or genus
-# which checks all folders recursively looking for bowtie coverage txt files when found put onto the same graph if in same folder
-#do graphs 
-#Look into Bam/Sam visualisation to see where are hits in SRA 
-#dont dispose of bam and make this 
-#RagTag Assembly 2 
-#Isca/Cloud AWS 3
-
-#TODO
-#set up graph creation of bowtie numbers wrt grep name find all bowties
 #do this https://medium.com/ngs-sh/coverage-analysis-from-the-command-line-542ef3545e2c for each for visulisation
-#Ragtag try and assemble 
-#Wednesday
-#CLOUDDD
 #Set up for next week 
 #Questionaire/Workshop 4
 #Test tonight with bryonys thing 
