@@ -7,7 +7,7 @@ fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
 [ -r @SRRNUMBER_1.fastq ] && for i in {1..2}; do cat @SRRNUMBER_"$i".fastq >> @SRRNUMBER.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER
 #debate whether or not to remove splitting on large files on AWS
-split -b 20G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
+split -b 80G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
 
 rm @SRRNUMBER_*.fastq
 #RENAME FILES TO BE NICER
@@ -69,6 +69,9 @@ fi
 find . -name "*bt2" -type f -delete 
 find . -name "*bai" -type f -delete 
 
+#DELETE SRA FILES 
+rm trimmed1@SRRNUMBER.fastq
+rm 1@SRRNUMBER.fastq
 #MOVE FILES INTO OWN OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
