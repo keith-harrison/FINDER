@@ -88,7 +88,7 @@ to input SRR number maybe not (would give a heatmap for multi references against
 Will activate a python script running a R file or just plucking up all /*/*bowtiecoverage.txt files putting ones in same folder on one plot/on top of eachother in different colours
 and seperate folders being subsequently below in same fashion.
 </p>
-<form method = "POST"  enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); "/program/";?>">
+<form method = "POST"  enctype="multipart/form-data" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
 <label for="stats">Aggregrate for:</label>
 <input type="text" id="stats" name="stats"><br><br>
 <input type="submit" name = "Stat" value="Stat">
