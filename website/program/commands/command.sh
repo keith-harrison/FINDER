@@ -6,9 +6,9 @@ fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
 #TURN PAIRED READS INTO SOMETHING ALIKE SINGLE
 [ -r @SRRNUMBER_1.fastq ] && for i in {1..2}; do cat @SRRNUMBER_"$i".fastq >> @SRRNUMBER.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER
-#debate whether or not to remove splitting on large files on AWS
-split -b 80G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
-
+split -b 5G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
+#Only want to know details about first 5GB from file
+ls *@SRRNUMBER.fastq | cat | tail -n+2 | while read -r line; do  sudo rm "$line"   ; done
 #Removes paired reads as there is now an intertwined file
 rm @SRRNUMBER_*.fastq
 #RENAME FILES TO BE NICER
