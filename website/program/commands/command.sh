@@ -2,18 +2,19 @@ rm /work/start.txt
 #Downloads Genbank file 
 [ ! -r assembly_summary_genbank.txt ] && wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt
 #DOWNLOAD SRA FILES (SRR FILES)
-fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD} 
+#fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
+fastq-dump -X 2500000000 @SRRNUMBER @SRRNUMBER -O ${PWD} 
 #TURN PAIRED READS INTO SOMETHING ALIKE SINGLE
 [ -r @SRRNUMBER_1.fastq ] && for i in {1..2}; do cat @SRRNUMBER_"$i".fastq >> @SRRNUMBER.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER
 split -b 5G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
-#Only want to know details about first 5GB from file
-ls *@SRRNUMBER.fastq | cat | tail -n+2 | while read -r line; do  sudo rm "$line"   ; done
 #Removes paired reads as there is now an intertwined file
 rm @SRRNUMBER_*.fastq
 #RENAME FILES TO BE NICER
 ls *.fastq0*| cat -n | while read n f; do mv -n "$f" "$n"@SRRNUMBER.fastq; done 
 rm @SRRNUMBER.fastq
+#Only want to know details about first 5GB from file
+ls *@SRRNUMBER.fastq | cat | tail -n+2 | while read -r line; do  sudo rm "$line"   ; done
 #DOWNLOAD METADATA BEHIND SRA FILE AND CODING REGIONS FROM ISOLATES WANTING TO BE FOUND
 wget -O ./@SRRNUMBER_info.csv 'http://trace.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?save=efetch&db=sra&rettype=runinfo&term= @SRRNUMBER'
 

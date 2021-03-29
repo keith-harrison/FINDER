@@ -59,7 +59,11 @@ img {
     <img src="websiteimages/inputstats.png" alt="Example input for stats">
 
 
-  
+<h2> Link to results folder </h2>
+<a href="/program/">
+    <button>Results</button>
+</a>
+
 
 
 <h2>Input for program</h2>
