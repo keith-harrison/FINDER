@@ -2,8 +2,8 @@ rm /work/start.txt
 #Downloads Genbank file 
 [ ! -r assembly_summary_genbank.txt ] && wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt
 #DOWNLOAD SRA FILES (SRR FILES)
-#fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
-fastq-dump -X 2500000000 @SRRNUMBER @SRRNUMBER -O ${PWD} 
+fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
+#fastq-dump -X --split-files 5000000000 @SRRNUMBER @SRRNUMBER -O ${PWD} 
 #TURN PAIRED READS INTO SOMETHING ALIKE SINGLE
 [ -r @SRRNUMBER_1.fastq ] && for i in {1..2}; do cat @SRRNUMBER_"$i".fastq >> @SRRNUMBER.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER

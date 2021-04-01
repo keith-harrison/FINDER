@@ -19,7 +19,7 @@ lengthamount=`cat length`
 #Calculate depth at each part to make a coverage histogram (showing where in reference genome most matches occur)
 samtools depth -aa mapping_result_sorted2.bam > genome.depth
 python -c'import sys;  sys.path.append("/program/commands"); import plot_depth; plot_depth.plot_depth("genome.depth", "depth2.png", "depth", '$lengthamount')'
-#x100
+#x100 to get percentage
 echo "scale=4 ; 100 * $coverageamount /$lengthamount" | bc >> "$1"BowtieCoverage2.txt
 rm coverage
 rm length
