@@ -92,21 +92,3 @@ mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE
 [ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed1*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/ragtag.scaffolds.fasta -o "$line"referencereport   ; done
 [ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE 
 rm /work/assemble.txt
-
-#inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
-#R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
-
-
-#TO DO 
-
-#outputs quast research 3
-#bryony workshop 4
-#phred 3
-#control 1 ~ meh
-#assembly - using RagTag 
-#do this https://medium.com/ngs-sh/coverage-analysis-from-the-command-line-542ef3545e2c for each for visulisation
-#Set up for next week 
-#Questionaire/Workshop 4
-#Test tonight with bryonys thing 
-
-#write thing
