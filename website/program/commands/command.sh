@@ -3,8 +3,9 @@ rm /work/start.txt
 [ ! -r assembly_summary_genbank.txt ] && wget ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/assembly_summary_genbank.txt
 #DOWNLOAD SRA FILES (SRR FILES)
 fasterq-dump @SRRNUMBER @SRRNUMBER -O ${PWD}
+#Below is alternative way of downloading SRA data slower but will not download more than needed BREAKS ON PAIRED READS
 #fastq-dump -X --split-files 5000000000 @SRRNUMBER @SRRNUMBER -O ${PWD} 
-#TURN PAIRED READS INTO SOMETHING ALIKE SINGLE
+#Concatenate the individual paired read files together
 [ -r @SRRNUMBER_1.fastq ] && for i in {1..2}; do cat @SRRNUMBER_"$i".fastq >> @SRRNUMBER.fastq ; done
 #SPLIT BIG FILES FOR INDEPENDENT ANALYSIS TO BE JOINED LATER
 split -b 5G -d @SRRNUMBER.fastq @SRRNUMBER.fastq
@@ -71,10 +72,10 @@ fi
 find . -name "*bt2" -type f -delete 
 find . -name "*bai" -type f -delete 
 
-#DELETE SRA FILES 
+#Delete large files no longer needed
 rm trimmed1@SRRNUMBER.fastq
 rm 1@SRRNUMBER.fastq
-#MOVE FILES INTO OWN OUTPUT FOLDER
+#MOVE FILES INTO OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
 chmod -R 777 beforetrimmingquality
@@ -92,21 +93,3 @@ mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE
 [ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed1*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/ragtag.scaffolds.fasta -o "$line"referencereport   ; done
 [ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE 
 rm /work/assemble.txt
-
-#inants into the docker file would mean we can put it onto docker and then use wget to get all files needed
-#R file for displays of coverage or just put into tables of X Y COVERAGE multiple studies.
-
-
-#TO DO 
-
-#outputs quast research 3
-#bryony workshop 4
-#phred 3
-#control 1 ~ meh
-#assembly - using RagTag 
-#do this https://medium.com/ngs-sh/coverage-analysis-from-the-command-line-542ef3545e2c for each for visulisation
-#Set up for next week 
-#Questionaire/Workshop 4
-#Test tonight with bryonys thing 
-
-#write thing

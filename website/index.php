@@ -24,11 +24,13 @@ img {
     data found in metagenomic/microbiome studies matches up with current reference databases, using annotated coding regions from the GenBank database and the coverage of these reference sequences.
 
     <ul> Tools
+    <li>Retrieval of FASTQ files and corresponding metadata and reference genomes from NCBI, using fasterq-dump</li>
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
-    <li>Alignment created using Bowtie between the reference and raw data  </li>
-    <li>SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files</li>
+    <li>Alignment created using Bowtie between the reference and raw data.</li>
+    <li>SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files.</li>
+    <li>TOOLS BELOW DISABLED<li>
     <li>RagTag to create an Metagenomic Assembled Genome using the reference as trusted contigs 
-    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. Takes a long time on local/low spec machines </li>
+    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. Takes a long time on local/low spec machines. </li>
     <li>Quast to look at the quality and accuracy and to compare against the reference.</li>
     Outputting all these results into the folder which can be found at the "currentip"/program/
     </ul>
@@ -105,12 +107,13 @@ if(isset($_POST['Start'])) {
   $sra = $_POST["sra"];
   $tax = $_POST["tax"];
   // Also assigns the optional assemble to just contain "y" if assembling against reference
+  /* CURRENTLY DISABLED AS ASSEMBLY CAUSES BUGS.
   if(isset($_POST['assemble'])) {
     $assemble = "y";
     $myfile = fopen("./work/assemble.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $assemble);
     fclose($myfile);
- }
+ } */
   // Makes work directory if nonexistent to store these files in 
   if (!is_dir("work"))
 {
