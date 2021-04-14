@@ -47,7 +47,7 @@ def main():
                 coveragefiles.append(name)
                 coverages.append(float(f.read().strip()))
                 f.close()
-    
+    #List comprehension to make sure labels on y axis are unique
     coveragefiles = [v + str(coveragefiles[:i].count(v) + 1) if coveragefiles.count(v) > 1 else v for i, v in enumerate(coveragefiles)]
     sns.set(rc={'figure.figsize':(11.7,8.27)})
     #Title for study 1X representing 1 apperence.
