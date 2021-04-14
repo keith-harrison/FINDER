@@ -24,8 +24,9 @@ docker-compose up
 
 Before you continue, ensure you have met the following requirements:
 * Google Cloud Account with Credit on (~£0.077/hour when being fully used for 24 hours, so shutdown when not in use of processing)
+* Create the VM instance with information below and SSH performing the code below.
 * Changing boot disk options using Container Optimized Machine OS, e2-standard-2 as with ~75GB+ of storage and allow HTTP traffic
-* Create the VM instance and SSH performing the code below.
+
 ```bat
 #There are some issues with permissions so chmod is needed
 #Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
