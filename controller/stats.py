@@ -48,10 +48,10 @@ def main():
                 coverages.append(float(f.read().strip()))
                 f.close()
     
-
+    coveragefiles = [v + str(coveragefiles[:i].count(v) + 1) if coveragefiles.count(v) > 1 else v for i, v in enumerate(coveragefiles)]
     sns.set(rc={'figure.figsize':(11.7,8.27)})
     #Title for study 1X representing 1 apperence.
-    plt.title("Coverage by reference genome at depth of atleast 1X (if A suffix then represents assembled study)")
+    plt.title("Coverage by reference genome at depth of atleast 1X")
 
     #Bar plot created
     sns_plot = sns.barplot(x=coverages,y=coveragefiles)
