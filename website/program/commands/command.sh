@@ -66,7 +66,7 @@ if test -f "/work/assemble.txt"; then
 
 fi
 
-#THESE FILES FROM BOWTIE RELATING TO THE REFERENCE GENOME AND ITS INDEXING CAN BE REUSED FOR BOTH SO ONLY DELETED NOW
+#THESE FILES FROM BOWTIE RELATING TO THE REFERENCE GENOME as no longer needed
 find . -name "*bt2" -type f -delete 
 find . -name "*bai" -type f -delete 
 
