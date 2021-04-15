@@ -60,10 +60,8 @@ ls trimmed1*.fastq| cat | while read -r line; do bash ./commands/bowtiecoverage.
 
 
 if test -f "/work/assemble.txt"; then
-    #PERFORM ASSEMBLY BY ragtag USING TRUSTED CONTIGS FROM REFERENCE
+    #PERFORM ASSEMBLY BY ragtag USING TRUSTED CONTIGS FROM REFERENCE ~ Change to SPAdes 
     ls trimmed1*.fastq| cat | while read -r line; do python3 /root/miniconda3/bin/ragtag.py scaffold -o "$line".d --aligner "/root/miniconda3/bin/minimap2" mergedreference.fasta "$line" ; done
-    #perform assembly by RagTag
-    ls trimmed1*@SRRNUMBER.fastq.d/ragtag.scaffolds.fasta | cat | while read -r line; do bash ./commands/bowtiecoverage2.sh "$line"   ; done
 
 
 fi
@@ -89,7 +87,7 @@ sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
 mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
-#PERFORM QUAST
+#PERFORM QUAST ~ Will change when assembly fixed
 [ -r /work/assemble.txt ] && ls ${PWD}/@TITLE/trimmed1*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/ragtag.scaffolds.fasta -o "$line"referencereport   ; done
-[ -r /work/assemble.txt ] && mv mapping_result_sorted2.bam ${PWD}/@TITLE && mv depth2.png ${PWD}/@TITLE 
+
 rm /work/assemble.txt
