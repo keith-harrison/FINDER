@@ -23,7 +23,7 @@ img {
     FINDER intends to give a better picture of the coverage by performing the steps detailed below and outputting statistics and graphs for researchers to determine whether or not the raw sequence
     data found in metagenomic/microbiome studies matches up with current reference databases, using annotated coding regions from the GenBank database and the coverage of these reference sequences.
 
-    <ul> Tools
+    <ul>Tools
     <li>Retrieval of FASTQ files and corresponding metadata and reference genomes from NCBI, using fasterq-dump</li>
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
     <li>Alignment created using Bowtie between the reference and raw data.</li>

@@ -59,9 +59,10 @@ RUN  wget -q -O  quast-5.1.0rc1.tar.gz --no-check-certificate https://github.com
 
 RUN wget -O SPAdes-3.15.2.tar.gz http://cab.spbu.ru/files/release3.15.2/SPAdes-3.15.2.tar.gz &&\
 tar -xzf SPAdes-3.15.2.tar.gz &&\
+rm SPAdes-3.15.2.tar.gz &&\
 cd SPAdes-3.15.2 &&\
-./spades_compile.sh &&\
-rm SPAdes-3.15.2.tar.gz
+./spades_compile.sh
+
 
 ENV PATH="/usr/local/bin:${PATH}"
 

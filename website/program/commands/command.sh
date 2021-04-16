@@ -91,7 +91,6 @@ sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
 mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
-#PERFORM QUAST ~ Will change when assembly fixed
+#PERFORM QUAST, gives a comparative analysis between MAG - Metagenomic Assembled Genome and Reference Genome
 [ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && ls ${PWD}/@TITLE/trimmed1*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"referencereport   ; done
-
 rm /work/assemble.txt
