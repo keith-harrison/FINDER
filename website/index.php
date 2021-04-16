@@ -28,7 +28,7 @@ img {
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
     <li>Alignment created using Bowtie between the reference and raw data.</li>
     <li>SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files.</li>
-    <li>TOOLS BELOW DISABLED<li>
+    <li>TOOLS BELOW DISABLED</li>
     <li>RagTag to create an Metagenomic Assembled Genome using the reference as trusted contigs 
     and De Novo methods. Using MiniMap2 as the aligner for the algorithm. Takes a long time on local/low spec machines. </li>
     <li>Quast to look at the quality and accuracy and to compare against the reference.</li>
