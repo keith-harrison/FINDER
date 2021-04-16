@@ -10,7 +10,7 @@ This tool is intended to work alongside blast screening to determine whether or 
     and De Novo methods.
 * Quast to look at the quality and accuracy and to perform a comparison against the reference, producing a report.
 ## Installation
-For this package you can easily run it on a local machine or a Google Cloud web service.
+For this package you can easily run it on a local machine or a Google Cloud web service. First Installation takes a while through Docker as it is having to compile all the code needed (around 5-10mins)
 
 ### Local Machine
 
