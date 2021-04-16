@@ -28,10 +28,9 @@ img {
     <li>Quality control and trimming with Cutadapt, FastQC and MultiQC. </li>
     <li>Alignment created using Bowtie between the reference and raw data.</li>
     <li>SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files.</li>
-    <li>TOOLS BELOW DISABLED</li>
-    <li>RagTag to create an Metagenomic Assembled Genome using the reference as trusted contigs 
-    and De Novo methods. Using MiniMap2 as the aligner for the algorithm. Takes a long time on local/low spec machines. </li>
-    <li>Quast to look at the quality and accuracy and to compare against the reference.</li>
+    <li>SPAdes to create an Metagenomic Assembled Genome using the aligned sequences from Bowtie2 alongside
+    and De Novo methods.</li>
+    <li>Quast to look at the quality and accuracy and to perform a comparison against the reference, producing a report.</li>
     Outputting all these results into the folder which can be found at the "currentip"/program/
     </ul>
     Please wait for it to be finished before trying another input, and refresh often to see whether or not the program is finished, evident when all files have been moved into the folder named after the title field.
@@ -107,13 +106,13 @@ if(isset($_POST['Start'])) {
   $sra = $_POST["sra"];
   $tax = $_POST["tax"];
   // Also assigns the optional assemble to just contain "y" if assembling against reference
-  /* CURRENTLY DISABLED AS ASSEMBLY CAUSES BUGS.
+
   if(isset($_POST['assemble'])) {
     $assemble = "y";
     $myfile = fopen("./work/assemble.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $assemble);
     fclose($myfile);
- } */
+ }
   // Makes work directory if nonexistent to store these files in 
   if (!is_dir("work"))
 {

@@ -53,6 +53,16 @@ RUN sudo apt-get -y install cmake
 
 RUN sudo apt-get install -y libbz2-dev
 
+RUN  wget -q -O  quast-5.1.0rc1.tar.gz --no-check-certificate https://github.com/ablab/quast/archive/quast_5.1.0rc1.tar.gz; \
+    tar -xzf quast-5.1.0rc1.tar.gz; \
+	rm  quast-5.1.0rc1.tar.gz; 
+
+RUN wget -O SPAdes-3.15.2.tar.gz http://cab.spbu.ru/files/release3.15.2/SPAdes-3.15.2.tar.gz &&\
+tar -xzf SPAdes-3.15.2.tar.gz &&\
+cd SPAdes-3.15.2 &&\
+./spades_compile.sh &&\
+rm SPAdes-3.15.2.tar.gz
+
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN apt-get install dos2unix
@@ -60,27 +70,12 @@ RUN apt-get install dos2unix
 ENV PATH="/opt/FastQC/:${PATH}"
 
 RUN pip install multiqc
-RUN  wget -q -O  quast-5.1.0rc1.tar.gz --no-check-certificate https://github.com/ablab/quast/archive/quast_5.1.0rc1.tar.gz; \
-    tar -xzf quast-5.1.0rc1.tar.gz; \
-	rm  quast-5.1.0rc1.tar.gz; 
 RUN sudo apt-get install bc
 
 RUN sudo apt-get install -y python3.6
 RUN apt-get install liblzma-dev
 RUN sudo apt-get install -y build-essential
 
-ENV PATH="/root/miniconda3/bin:${PATH}"
-ARG PATH="/root/miniconda3/bin:${PATH}"
-RUN apt-get update
 
-RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
-
-RUN wget -q -O Miniconda3-latest-Linux-x86_64.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
-    && mkdir /conda \
-    && bash Miniconda3-latest-Linux-x86_64.sh -b \
-    && rm -f Miniconda3-latest-Linux-x86_64.sh 
-RUN conda --version
-RUN pip install RagTag
-RUN conda install -c bioconda minimap2
 RUN pip install seaborn
 RUN pip install pandas
