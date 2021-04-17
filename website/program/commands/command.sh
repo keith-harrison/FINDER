@@ -64,17 +64,13 @@ if test -f "/work/assemble.txt"; then
     samtools bam2fq mapping_result_sorted.bam > aligned.fastq
     #PERFORM ASSEMBLY BY SPAdes USING aligned reads from Bowtie2
     ls trimmed1*.fastq| cat | while read -r line; do  python3 "/SPAdes-3.15.2/spades.py" -k 23,33,43,53,63,73,83,93,103,113 -s aligned.fastq  -o "$line".d ; done
-
+    python3 /quast-quast_5.1.0rc1/quast.py -R mergedreference.fasta trimmed1@SRRNUMBER.fastq.d/scaffolds.fasta -o trimmed1@SRRNUMBERMAGReport
 
 fi
 
 #THESE FILES FROM BOWTIE RELATING TO THE REFERENCE GENOME as no longer needed
 find . -name "*bt2" -type f -delete 
 find . -name "*bai" -type f -delete 
-
-#Delete large files no longer needed
-rm trimmed1@SRRNUMBER.fastq
-rm 1@SRRNUMBER.fastq
 #MOVE FILES INTO OUTPUT FOLDER
 mv beforetrimmingquality.html beforetrimmingquality_data
 mv trimmedquality.html trimmedquality_data
@@ -91,7 +87,9 @@ sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
 mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
-#PERFORM QUAST, gives a comparative analysis between MAG - Metagenomic Assembled Genome and Reference Genome * CHANGE QUAST
-[ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta ${PWD}/@TITLE/trimmed1@SRRNUMBER.fastq.d/scaffolds.fasta -o ${PWD}/@TITLE/trimmed1@SRRNUMBERGenomeReport
-
+#PERFORM QUAST, gives a comparative analysis between MAG - Metagenomic Assembled Genome and Reference Genome
+[ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && sudo mv trimmed1@SRRNUMBERMAGReport ${PWD}/@TITLE
 rm /work/assemble.txt
+#Delete large files no longer needed
+rm @TITLE/trimmed1@SRRNUMBER.fastq
+rm @TITLE/1@SRRNUMBER.fastq
