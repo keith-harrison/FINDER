@@ -45,6 +45,11 @@ docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="
 * Access website at ip given on VM instance page externalip:80 
 * instructions detailed on website and files can be accessed on externalip/program
 
+### Downloading Results
+Results can be easily downloaded to another machine using the code below in the command terminal.
+```bat
+wget --recursive --no-clobber --page-requisites --html-extension --convert-links ipaddress/program
+```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
