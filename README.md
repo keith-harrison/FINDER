@@ -7,7 +7,7 @@ This tool is intended to work alongside blast screening to determine whether or 
 * Alignment created using Bowtie between the reference and raw data.
 * SAMtools to create coverage tables of the reference, then calculating the breadth of coverage found at atleast 1X depth. - Can be changed in bowtiecoverage(2).sh files.
 * SPAdes to create an Metagenomic Assembled Genome using the aligned sequences from Bowtie2 alongside
-    and De Novo methods.
+    De Novo methods.
 * Quast to look at the quality and accuracy and to perform a comparison against the reference, producing a report.
 ## Installation
 For this package you can easily run it on a local machine or a Google Cloud web service. First Installation takes a while through Docker as it is having to compile all the code needed (around 10-20mins)
