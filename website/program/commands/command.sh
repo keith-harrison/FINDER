@@ -92,6 +92,6 @@ mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
 mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
 #PERFORM QUAST, gives a comparative analysis between MAG - Metagenomic Assembled Genome and Reference Genome * CHANGE QUAST
-[ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && ls ${PWD}/@TITLE/trimmed1*.fastq.d| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line"/scaffolds.fasta -o "$line"referencereport   ; done
+[ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && ls ${PWD}/@TITLE/trimmed1*.fastq| cat | while read -r line; do python3 /quast-quast_5.1.0rc1/quast.py -R ${PWD}/@TITLE/mergedreference.fasta "$line".d/scaffolds.fasta -o "$line"GenomeReport   ; done
 
 rm /work/assemble.txt
