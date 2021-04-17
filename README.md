@@ -36,7 +36,7 @@ Before you continue, ensure you have met the following requirements:
 
 ```bat
 #There are some issues with permissions so chmod is needed
-#Can take sometime to setup on first try (around 5-10mins) as all dependencies are downloaded.
+#Can take sometime to setup on first try (around 15-20mins) as all dependencies are downloaded and compiled.
 git clone https://github.com/keith-harrison/FINDER/
 chmod -R 777 FINDER 
 cd FINDER
