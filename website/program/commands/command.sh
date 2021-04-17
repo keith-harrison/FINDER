@@ -64,7 +64,7 @@ if test -f "/work/assemble.txt"; then
     samtools bam2fq mapping_result_sorted.bam > aligned.fastq
     #PERFORM ASSEMBLY BY SPAdes USING aligned reads from Bowtie2
     ls trimmed1*.fastq| cat | while read -r line; do  python3 "/SPAdes-3.15.2/spades.py" -k 23,33,43,53,63,73,83,93,103,113 -s aligned.fastq  -o "$line".d ; done
-    python3 /quast-quast_5.1.0rc1/quast.py -R mergedreference.fasta trimmed1@SRRNUMBER.fastq.d/scaffolds.fasta -o trimmed1@SRRNUMBERMAGReport
+    python3 "/quast-quast_5.1.0rc1/quast.py" -R mergedreference.fasta trimmed1@SRRNUMBER.fastq.d/scaffolds.fasta -o trimmed1@SRRNUMBERMAGReport
 
 fi
 
