@@ -87,7 +87,8 @@ sudo mv ${PWD}/beforetrimmingquality_data ${PWD}/@TITLE
 sudo mv ${PWD}/trimmedquality_data ${PWD}/@TITLE
 mv ftp_folder.txt ${PWD}/@TITLE
 mv @SRRNUMBER_info.csv ${PWD}/@TITLE
-mv mapping_result_sorted.bam ${PWD}/@TITLE && mv depth.png ${PWD}/@TITLE 
+mv mapping_result_sorted.bam ${PWD}/@TITLE
+mv depth.png ${PWD}/@TITLE 
 #PERFORM QUAST, gives a comparative analysis between MAG - Metagenomic Assembled Genome and Reference Genome
 [ -r /work/assemble.txt ] && mv aligned.fastq ${PWD}/@TITLE && sudo mv trimmed1@SRRNUMBERMAGReport ${PWD}/@TITLE
 rm /work/assemble.txt
