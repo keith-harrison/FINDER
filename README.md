@@ -1,5 +1,5 @@
 # FINDER
-FINDER is a library/docker container for a pipeline performing: Downloading of SRA/DRA/ERA data, Quality control, Alignment with reference and optionally Assembly by reference creating Metagenomic assembled genomes.
+FINDER is a library/docker container for a pipeline performing: Downloading of SRA/DRA/ERA data, quality control, alignment with reference and optionally assembly by reference creating metagenomic assembled genomes.
 This tool is intended to work alongside blast screening to determine whether or not a reference sequence appears within metagenomic data. If so how much? But can be used similarly to blast to give a coverage of a reference sequence.
 ## Tools Used
 * Retrieval of FASTQ files and corresponding metadata and reference genomes from NCBI, using fasterq-dump
